@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===============================
+         WEBSITE TITLE
+         เปลี่ยนชื่อเว็บไซต์ (แสดงบนแท็บเบราว์เซอร์) ตรงนี้
+         =============================== -->
+    <title>Camp Memory Book — ຄວາມຊົງຈຳຂອງພວກເຮົາ</title>
+    <meta name="description" content="ປຶ້ມບັນທຶກຄວາມຊົງຈຳຂອງຄ່າຍອາສາ 2 ມື້">
+    <meta name="theme-color" content="#3f8f5a">
+
+    <!-- ไม่ให้เว็บขึ้นใน Google (เปิดได้เฉพาะคนที่มีลิงก์) -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- ===============================
+         FALLBACK FONTS (Thai / Lao)
+         ใช้เป็นฟอนต์สำรอง ถ้าฟอนต์ใน assets/fonts/ ยังไม่มีหรือโหลดไม่ได้
+         =============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&amp;family=Noto+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ==========================================================
+         DOODLE ICONS (SVG วาดเอง ใช้ซ้ำทั้งเว็บด้วย <use href="#i-...">)
+         ========================================================== -->
+    <svg class="svg-sprite" aria-hidden="true" focusable="false">
+        <symbol id="i-heart" viewBox="0 0 32 32">
+            <path d="M16 27s-10-6.2-10-13.2A5.6 5.6 0 0 1 16 10.4a5.6 5.6 0 0 1 10 3.4C26 20.8 16 27 16 27z"
+                  fill="currentColor" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="i-star" viewBox="0 0 32 32">
+            <path d="M16 3c1 6.6 3.4 9 10 10-6.6 1-9 3.4-10 10-1-6.6-3.4-9-10-10 6.6-1 9-3.4 10-10z"
+                  fill="currentColor"/>
+        </symbol>
+        <symbol id="i-leaf" viewBox="0 0 32 32">
+            <path d="M6 26C6 13 14 6 27 5c-1 13-8 21-21 21z" fill="currentColor"/>
+            <path d="M6 26L20 12" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity=".7"/>
+        </symbol>
+        <symbol id="i-flower" viewBox="0 0 32 32">
+            <g fill="#fff" stroke="currentColor" stroke-width="1.4">
+                <circle cx="16" cy="8.5" r="5"/><circle cx="23.2" cy="13.8" r="5"/>
+                <circle cx="20.4" cy="22.3" r="5"/><circle cx="11.6" cy="22.3" r="5"/>
+                <circle cx="8.8" cy="13.8" r="5"/>
+            </g>
+            <circle cx="16" cy="16" r="4" fill="#f5c228"/>
+        </symbol>
+        <symbol id="i-music" viewBox="0 0 24 24">
+            <path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5c.9 0 1.7.4 2.5 1V5l11-2v12.5a2.5 2.5 0 1 1-2.5-2.5c.9 0 1.7.4 2.5 1V7l-11 2"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+    </svg>
+
+
+    <!-- ==========================================================
+         NAVIGATION (แถบเมนูกลางจอ ด้านบนสุด)
+         href ของแต่ละเมนูต้องตรงกับ id ของหน้า (section) ด้านล่าง
+         ========================================================== -->
+    <header class="site-header" id="site-header">
+        <nav class="main-nav" aria-label="ເມນູຫຼັກ">
+            <ul class="nav-list">
+                <li><a href="#home">ໜ້າຫຼັກ</a></li>
+                <li><a href="#about">ຄາລະວານ</a></li>
+                <li><a href="#teams">ແຕ່ລະທີມ</a></li>
+                <li><a href="#memories">ຄວາມຊົງຈຳ</a></li>
+                <li><a href="#message">ຂໍ້ຄວາມ</a></li>
+                <li><a href="#video">ວິດີໂອ</a></li>
+            </ul>
+        </nav>
+
+        <!-- ===============================
+             MUSIC PLAYER
+             ใส่ไฟล์เพลงจริงที่ assets/music/background.mp3
+             =============================== -->
+        <div class="music-player">
+            <button type="button" class="music-btn" id="music-btn" aria-pressed="false" aria-label="ຫຼິ້ນເພງ">
+                <svg class="music-icon" aria-hidden="true"><use href="#i-music"/></svg>
+                <span class="music-status" id="music-status">Paused</span>
+            </button>
+            <audio id="bg-music" src="assets/music/background.mp3" preload="none" loop></audio>
+        </div>
+    </header>
+
+
+    <main id="main">
+
+        <!-- ==========================================================
+             01 — HOME / HERO
+             ========================================================== -->
+        <section class="view hero" id="home" aria-labelledby="hero-title">
+            <div class="container hero-inner">
+
+                <!-- LOGO: ใส่ไฟล์จริงที่ assets/images/logo.png -->
+                <div class="hero-logo anim-up" style="--delay: 0s">
+                    <img src="assets/images/logo.png" alt="Camp Logo">
+                </div>
+
+                <!-- HERO IMAGE: ใส่ไฟล์จริงที่ assets/images/hero.jpg -->
+                <div class="hero-photo-wrap anim-up" style="--delay: .12s">
+                    <figure class="hero-media">
+                        <img src="assets/images/hero.jpg" alt="ພາບບັນຍາກາດຄ່າຍອາສາ">
+                    </figure>
+
+                    <!-- ตกแต่งรอบรูป -->
+                    <span class="tape tape--left" aria-hidden="true"></span>
+                    <span class="tape tape--right" aria-hidden="true"></span>
+                    <svg class="doodle doodle--heart" aria-hidden="true"><use href="#i-heart"/></svg>
+                    <svg class="doodle doodle--star" aria-hidden="true"><use href="#i-star"/></svg>
+                    <svg class="doodle doodle--flower" aria-hidden="true"><use href="#i-flower"/></svg>
+                    <svg class="doodle doodle--leaf" aria-hidden="true"><use href="#i-leaf"/></svg>
+                </div>
+
+                <!-- ===============================
+                     HERO TEXT
+                     แก้ข้อความหน้าแรกตรงนี้
+                     =============================== -->
+                <div class="hero-text">
+                    <h1 class="hero-title anim-up" id="hero-title" style="--delay: .28s">
+                        <span>2 ມື້ທີ່ຜ່ານມາ</span><br>
+                        <span>ເປັນມື້ທີ່ໂຄດມ່ວນ ແລະ ມີຄວາມສຸກຫຼາຍ</span>
+                    </h1>
+
+                    <p class="hero-lead anim-up" style="--delay: .4s">
+                        ຂອບໃຈທຸກຄົນທີ່ເຮັດໃຫ້ 2 ມື້ນັ້ນ<br>
+                        ກາຍເປັນຄວາມຊົງຈຳທີ່ດີ
+                    </p>
+
+                    <a href="#about" class="btn anim-up" style="--delay: .52s">ໄປເບິ່ງພາບຄວາມຊົງຈຳນັ້ນກັນ →</a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             02 — ABOUT CAMP
+             ========================================================== -->
+        <section class="view page" id="about" aria-labelledby="about-title">
+            <div class="container">
+                <h2 class="page-title" id="about-title">ຄາລະວານ</h2>
+
+                <div class="about-layout">
+
+                    <!-- ABOUT IMAGE: ใส่ไฟล์จริงที่ assets/images/about.jpg -->
+                    <div class="about-photo-wrap">
+                        <figure class="polaroid about-polaroid">
+                            <div class="polaroid__img">
+                                <img src="assets/images/about.jpg" alt="ພາບກິດຈະກຳໃນຄ່າຍ" loading="lazy">
+                            </div>
+                            <figcaption class="polaroid__caption">ຄາລະວານຂອງເຮົາ 🌿</figcaption>
+                        </figure>
+                        <span class="tape tape--top" aria-hidden="true"></span>
+                        <svg class="doodle about-doodle--star" aria-hidden="true"><use href="#i-star"/></svg>
+                        <svg class="doodle about-doodle--leaf" aria-hidden="true"><use href="#i-leaf"/></svg>
+                    </div>
+
+                    <!-- ===============================
+                         ABOUT TEXT
+                         แก้ข้อความเกี่ยวกับค่ายตรงนี้
+                         =============================== -->
+                    <div class="paper-card lined-paper about-note">
+                        <span class="tape tape--top" aria-hidden="true"></span>
+                        <h3 class="about-note__title">ຄ່າຍອາສາສ້າງສື່ເຜື່ອນ້ອງ</h3>
+                        <p>
+                            ຄ່າຍອາສາແຫ່ງນີ້ ໄດ້ເຮັດໃຫ້ພວກເຮົາມາພົບກັນ
+                            ໄດ້ຮຽນຮູ້ ໄດ້ຮູ້ຈັກກັນ ໄດ້ຊ່ວຍເຫຼືອກັນ ແລະ ໄດ້ສ້າງຄວາມຊົງຈຳດີໆ
+                            ຮ່ວມກັນໃນຊ່ວງເວລາສັ້ນໆ ເປັນໄລຍະເວລາ 2 ມື້ 
+                            ແຫ່ງມິດຕະພາບທີ່ຫາຈາກໃສບໍ່ໄດ້
+                        </p>
+                        <svg class="about-note__heart" aria-hidden="true"><use href="#i-heart"/></svg>
+                        <svg class="about-note__flower" aria-hidden="true"><use href="#i-flower"/></svg>
+                    </div>
+
+                </div>
+
+                <div class="page-next">
+                    <a href="#teams" class="btn">ໄປເບິ່ງແຕ່ລະທີມກັນ →</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             03 — TEAMS
+             การ์ดทีมสร้างอัตโนมัติจาก TEAM DATA ใน js/script.js
+             (สมาชิกแบบ Polaroid จะเพิ่มใน Phase 4)
+             ========================================================== -->
+        <section class="view page" id="teams" aria-labelledby="teams-title">
+            <div class="container">
+                <h2 class="page-title" id="teams-title">ແຕ່ລະທີມ</h2>
+                <p class="page-lead">5 ທີມ 5 ສີ ກັບຄວາມຊົງຈຳຮ່ວມກັນ</p>
+
+                <div class="team-overview" id="team-overview"></div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             03.1 — TEAM MEMBERS (หน้าสมาชิกของแต่ละทีม)
+             เปิดจากปุ่ม "ดูสมาชิก" (ลิงก์ #team-yellow, #team-red ...)
+             การ์ดสมาชิกสร้างอัตโนมัติจาก TEAM MEMBER DATA ใน js/script.js
+             ========================================================== -->
+        <section class="view page team-page" id="team-members" data-nav="teams" aria-labelledby="team-page-title">
+            <div class="container">
+
+                <a href="#teams" class="back-link">← ກັບໄປເບິ່ງທຸກທີມ</a>
+
+                <div class="team-page__head">
+                    <span class="team-flag" aria-hidden="true"></span>
+                    <h2 class="team-page__title" id="team-page-title">ທີມ</h2>
+                    <p class="team-page__count" id="team-page-count"></p>
+                </div>
+
+                <p class="team-page__hint">ແຕະທີ່ຮູບເພື່ອອ່ານຂໍ້ຄວາມເຖິງແຕ່ລະຄົນ 💌</p>
+
+                <div class="member-board">
+                    <div class="member-grid" id="member-grid"></div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             04 — MEMORY GALLERY
+             รูปทั้งหมดของค่ายรวมไว้ใน Gallery เดียว
+             รูปสร้างอัตโนมัติจาก MEMORY GALLERY ใน js/script.js
+             ========================================================== -->
+        <section class="view page" id="memories" aria-labelledby="memories-title">
+            <div class="container">
+                <h2 class="page-title" id="memories-title">ພາບຄວາມຊົງຈຳຂອງພວກເຮົາ</h2>
+                <p class="page-lead">ແຕະຮູບເພື່ອເບິ່ງພາບໃຫຍ່ 📷</p>
+
+                <div class="memory-board">
+                    <div class="memory-grid" id="memory-gallery"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             05 — MESSAGE
+             ========================================================== -->
+        <section class="view page" id="message" aria-labelledby="message-title">
+            <div class="container">
+                <h2 class="page-title" id="message-title">ຂໍ້ຄວາມເຖິງທຸກຄົນ</h2>
+
+                <article class="letter">
+                    <span class="tape tape--top" aria-hidden="true"></span>
+                    <svg class="letter__flower" aria-hidden="true"><use href="#i-flower"/></svg>
+
+                    <!-- ===============================
+                         MESSAGE TEXT
+                         แก้ข้อความจดหมายตรงนี้
+                         (ขึ้นบรรทัดใหม่ใช้ <br> / ขึ้นย่อหน้าใหม่ใช้ <p>)
+                         =============================== -->
+                    <p class="letter__greeting">ເຖິງທຸກຄົນ 🌿</p>
+
+                    <p>
+                        ຂອບໃຈທຸກໆຄົນທີ່ເຮັດໃຫ້ 2 ມື້ນັ້ນ<br>
+                        ເປັນສ່ວນໜຶ່ງຂອງຄວາມຊົງຈຳທີ່ດີໂຄດໆ
+                    </p>
+
+                    <p>
+                        ເຖິງແມ້ສິເປັນແຄ່ໄລຍະສັ້ນໆ<br>
+                        ແຕ່ຄວາມຮູ້ສຶກດີໆ<br>
+                        ຈະຍັງຢູ່ກັບເຮົາສະເໝີ
+                        ຫວັງວ່າພວກເຮົາຈະໄດ້ພົບກັນໃໝ່ອີກຄັ້ງ
+                    </p>
+
+                    <p class="letter__sign">ຂອບໃຈທຸກຄົນ 🤍</p>
+
+                    <svg class="letter__heart" aria-hidden="true"><use href="#i-heart"/></svg>
+                    <svg class="letter__star" aria-hidden="true"><use href="#i-star"/></svg>
+                </article>
+
+                <div class="page-next">
+                    <a href="#video" class="btn">ໄປເບິ່ງວິດີໂອແຫ່ງຄວາມຊົງຈຳກັນ →</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             06 — VIDEO
+             ========================================================== -->
+        <section class="view page" id="video" aria-labelledby="video-title">
+            <div class="container">
+                <h2 class="page-title" id="video-title">ວິດີໂອແຫ່ງຄວາມຊົງຈຳ</h2>
+
+                <div class="video-frame">
+                    <span class="tape tape--left" aria-hidden="true"></span>
+                    <span class="tape tape--right" aria-hidden="true"></span>
+
+                    <!-- VIDEO: ใส่ไฟล์จริงที่ assets/videos/memory.mp4 -->
+                    <div class="video-screen" id="video-screen" data-missing="memory.mp4">
+                        <video id="memory-video" controls preload="metadata" playsinline>
+                            <source src="assets/videos/memory.mp4" type="video/mp4">
+                            ບຣາວເຊີນີ້ບໍ່ຮອງຮັບການຫຼິ້ນວິດີໂອ
+                        </video>
+                    </div>
+
+                    <p class="video-caption">ຍ້ອນໄປເບິ່ງຊ່ວງເວລາດີໆ ຂອງພວກເຮົາອີກຄັ້ງ 🎬</p>
+                </div>
+
+                <div class="page-next">
+                    <a href="#home" class="btn">← ກັບໄປໜ້າຫຼັກ</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================================
+         LIGHTBOX (ดูรูปใหญ่)
+         ========================================================== -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ເບິ່ງຮູບຂະໜາດໃຫຍ່" hidden>
+        <button type="button" class="lightbox__btn lightbox__close" id="lightbox-close" aria-label="ປິດ">✕</button>
+        <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="ຮູບກ່ອນໜ້າ">‹</button>
+
+        <figure class="lightbox__figure" id="lightbox-figure">
+            <div class="lightbox__frame">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+            <figcaption class="lightbox__caption">
+                <span id="lightbox-caption"></span>
+                <span class="lightbox__counter" id="lightbox-counter"></span>
+            </figcaption>
+        </figure>
+
+        <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="ຮູບຕໍ່ໄປ">›</button>
+    </div>
+
+    <!-- ==========================================================
+         MEMBER CARD (กดที่รูปสมาชิก → การ์ดข้อความ)
+         ข้อความและลิงก์ติดต่อแก้ได้ที่ TEAM MEMBER DATA ใน js/script.js
+         ========================================================== -->
+    <div class="member-modal" id="member-modal" role="dialog" aria-modal="true" aria-labelledby="mm-name" hidden>
+        <button type="button" class="lightbox__btn lightbox__close" id="mm-close" aria-label="ປິດ">✕</button>
+        <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--prev mm-nav" id="mm-prev" aria-label="ຄົນກ່ອນໜ້າ">‹</button>
+
+        <article class="mm-card" id="mm-card">
+            <div class="mm-photo polaroid">
+                <span class="tape tape--top" aria-hidden="true"></span>
+                <div class="polaroid__img">
+                    <img id="mm-img" src="" alt="">
+                </div>
+                <h3 class="mm-name" id="mm-name"></h3>
+            </div>
+
+            <div class="mm-body" id="mm-body">
+                <div class="mm-note lined-paper" id="mm-note">
+                    <p class="mm-label">ໃນສາຍຕາຂອງພວກເຮົາ 💭</p>
+                    <p class="mm-message" id="mm-message"></p>
+                    <svg class="mm-heart" aria-hidden="true"><use href="#i-heart"/></svg>
+                </div>
+
+                <a class="mm-contact" id="mm-contact" target="_blank" rel="noopener noreferrer" hidden>
+                    <svg class="mm-contact__icon" id="mm-contact-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+                    <span id="mm-contact-label"></span>
+                </a>
+
+                <p class="mm-counter" id="mm-counter"></p>
+            </div>
+        </article>
+
+        <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--next mm-nav" id="mm-next" aria-label="ຄົນຕໍ່ໄປ">›</button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
